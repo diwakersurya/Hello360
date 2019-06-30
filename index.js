@@ -1,10 +1,14 @@
 import { AppRegistry } from 'react-360';
-import TopPosts from './TopPosts';
-import CurrentPost from './CurrentPost';
+// 3.) register the Keyboard in your AppRegistry
+import { registerKeyboard } from 'react-360-keyboard';
+import SearchPanel from './SearchPanel';
+import ProfilePanel from './ProfilePanel';
+import InfoPanel from './InfoPanel';
 import ModelView from './ModelView';
 import * as Store from './Store';
-Store.initialize('AIzaSyDTRmboVHB7NhTkCTPyExk9uEPOAlk_EzQ');
+Store.initialize();
 
-AppRegistry.registerComponent('TopPosts', () => TopPosts);
-AppRegistry.registerComponent('CurrentPost', () => CurrentPost);
-AppRegistry.registerComponent('ModelView', () => ModelView);
+AppRegistry.registerComponent('SearchPanel', () => SearchPanel);
+AppRegistry.registerComponent('ProfilePanel', () => ProfilePanel);
+AppRegistry.registerComponent('InfoPanel', () => InfoPanel);
+AppRegistry.registerComponent(...registerKeyboard);

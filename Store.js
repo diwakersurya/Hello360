@@ -9,8 +9,7 @@ import * as React from 'react';
  * ensure all of our elements are synchronized.
  */
 const State = {
-    posts: undefined,
-    current: -1
+    userName: 'addyosmani'
 };
 
 const listeners = new Set();
@@ -21,56 +20,30 @@ function updateComponents() {
     }
 }
 
-const POLY_PATH = 'https://poly.googleapis.com/v1/assets?';
 export function initialize(apiKey) {
-    // Fetch the top 5 posts from Google Poly
-    const options = {
-        curated: true,
-        format: 'GLTF2',
-        key: apiKey,
-        pageSize: 5
-    };
-    const queryString = Object.keys(options)
-        .map(k => `${k}=${options[k]}`)
-        .join('&');
-    fetch(POLY_PATH + queryString)
-        .then(response => response.json())
-        .then(body => {
-            const entries = body.assets.map(asset => {
-                const objSource = asset.formats.filter(
-                    format => format.formatType === 'GLTF2'
-                )[0];
-                return {
-                    id: asset.name,
-                    name: asset.displayName,
-                    author: asset.authorName,
-                    description: asset.description,
-                    source: objSource,
-                    preview: asset.thumbnail.url
-                };
-            });
-
-            State.posts = entries;
-            updateComponents();
-        });
+    updateComponents();
 }
 
-export function setCurrent(value) {
-    State.current = value;
+export function set(field, value) {
+    State[field] = value;
+    updateComponents();
+}
+export function setAll(obj) {
+    Object.keys(obj).forEach(prop => {
+        State[prop] = obj[prop];
+    });
     updateComponents();
 }
 
 export function connect(Component) {
     return class Wrapper extends React.Component {
         state = {
-            posts: State.posts,
-            current: State.current
+            ...State
         };
 
         _listener = () => {
             this.setState({
-                posts: State.posts,
-                current: State.current
+                ...State
             });
         };
 
@@ -83,13 +56,7 @@ export function connect(Component) {
         }
 
         render() {
-            return (
-                <Component
-                    {...this.props}
-                    posts={this.state.posts}
-                    current={this.state.current}
-                />
-            );
+            return <Component {...this.props} {...this.state} />;
         }
     };
 }
