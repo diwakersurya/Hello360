@@ -4,7 +4,6 @@ import { registerKeyboard } from 'react-360-keyboard';
 import SearchPanel from './SearchPanel';
 import ProfilePanel from './ProfilePanel';
 import InfoPanel from './InfoPanel';
-import ModelView from './ModelView';
 import * as Store from './Store';
 Store.initialize();
 

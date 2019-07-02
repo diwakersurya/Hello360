@@ -12,46 +12,6 @@ import axios from 'axios';
 import { connect, set, setAll } from './Store';
 import RotateView from './RotateView';
 
-// class AdvertiserButton extends React.Component {
-//     state = {
-//         hover: false
-//     };
-
-//     render() {
-//         return (
-//             <VrButton
-//                 style={styles.advertiserButton}
-//                 onEnter={() => this.setState({ hover: true })}
-//                 onExit={() => this.setState({ hover: false })}
-//                 // onClick={() => setCurrent(this.props.index)}
-//             >
-//                 <Image
-//                     style={styles.advertiserButtonPreview}
-//                     source={{ uri: this.props.logoAssetUrl }}
-//                 />
-//                 <View
-//                     style={[
-//                         styles.advertiserButtonInfo,
-//                         this.state.hover
-//                             ? styles.advertiserButtonInfoHover
-//                             : null
-//                     ]}>
-//                     <View style={styles.advertiserButtonLabel}>
-//                         <Text style={styles.advertiserButtonName}>
-//                             {this.props.name}
-//                         </Text>
-//                     </View>
-//                     {/* <View style={styles.advertiserButtonLabel}>
-//                         <Text style={styles.postButtonAuthor}>
-//                             {this.props.author}
-//                         </Text>
-//                     </View> */}
-//                 </View>
-//             </VrButton>
-//         );
-//     }
-// }
-
 class Search extends React.Component {
     constructor(props) {
         super(props);
@@ -126,6 +86,11 @@ class SearchInput extends React.Component {
                         location,
                         name
                     });
+                })
+                .catch(() => {
+                    {
+                        this.setState({ loading: false });
+                    }
                 });
         }
     }
